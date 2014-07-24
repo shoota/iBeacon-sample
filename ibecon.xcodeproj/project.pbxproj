@@ -21,6 +21,7 @@
 		BE59DC2219800E1000578F57 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE59DC0419800E1000578F57 /* UIKit.framework */; };
 		BE59DC2A19800E1000578F57 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE59DC2819800E1000578F57 /* InfoPlist.strings */; };
 		BE59DC2C19800E1000578F57 /* ibeconTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BE59DC2B19800E1000578F57 /* ibeconTests.m */; };
+		BE59DC3619800E2700578F57 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE59DC3519800E2700578F57 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		BE59DC2719800E1000578F57 /* ibeconTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ibeconTests-Info.plist"; sourceTree = "<group>"; };
 		BE59DC2919800E1000578F57 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BE59DC2B19800E1000578F57 /* ibeconTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ibeconTests.m; sourceTree = "<group>"; };
+		BE59DC3519800E2700578F57 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE59DC3619800E2700578F57 /* CoreLocation.framework in Frameworks */,
 				BE59DC0319800E1000578F57 /* CoreGraphics.framework in Frameworks */,
 				BE59DC0519800E1000578F57 /* UIKit.framework in Frameworks */,
 				BE59DC0119800E1000578F57 /* Foundation.framework in Frameworks */,
@@ -101,6 +104,7 @@
 		BE59DBFF19800E1000578F57 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BE59DC3519800E2700578F57 /* CoreLocation.framework */,
 				BE59DC0019800E1000578F57 /* Foundation.framework */,
 				BE59DC0219800E1000578F57 /* CoreGraphics.framework */,
 				BE59DC0419800E1000578F57 /* UIKit.framework */,
@@ -199,6 +203,13 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = anaguma.org;
 				TargetAttributes = {
+					BE59DBFC19800E1000578F57 = {
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
 					BE59DC1D19800E1000578F57 = {
 						TestTargetID = BE59DBFC19800E1000578F57;
 					};
@@ -380,6 +391,7 @@
 				GCC_PREFIX_HEADER = "ibecon/ibecon-Prefix.pch";
 				INFOPLIST_FILE = "ibecon/ibecon-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "A55C065A-5976-4193-8DDC-BCD1696B91AA";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -393,6 +405,7 @@
 				GCC_PREFIX_HEADER = "ibecon/ibecon-Prefix.pch";
 				INFOPLIST_FILE = "ibecon/ibecon-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "A55C065A-5976-4193-8DDC-BCD1696B91AA";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -456,6 +469,7 @@
 				BE59DC3119800E1000578F57 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BE59DC3219800E1000578F57 /* Build configuration list for PBXNativeTarget "ibeconTests" */ = {
 			isa = XCConfigurationList;
@@ -464,6 +478,7 @@
 				BE59DC3419800E1000578F57 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
