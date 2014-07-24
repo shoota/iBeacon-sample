@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ibecon/ViewController.m"
-            timestampString = "427826096.91964"
+            timestampString = "427906605.32471"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "20"
-            endingLineNumber = "20"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
             landmarkName = "@implementation ViewController"
             landmarkType = "3">
          </BreakpointContent>

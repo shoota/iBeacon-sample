@@ -12,8 +12,14 @@
 @interface ViewController () <CLLocationManagerDelegate>
 
 @property (nonatomic) CLLocationManager *locationManager;
-@property (nonatomic) NSUUID *proximityUUID;
-@property (nonatomic) CLBeaconRegion *beaconRegion;
+@property (nonatomic) NSString          *uuidString;
+@property (nonatomic) NSUUID            *proximityUUID;
+@property (nonatomic) CLBeaconRegion    *beaconRegion;
+
+// UI parts
+@property (weak, nonatomic) IBOutlet UILabel *messageLabel;
+@property (weak, nonatomic) IBOutlet UITextField *rangeMessage;
+@property (weak, nonatomic) IBOutlet UITextField *rssiPower;
 
 @end
 
@@ -22,6 +28,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+ 
+    self.uuidString = @"EE29A799-1E19-4315-993B-C30ACF58103F";
+
+    self.messageLabel.text = @"Searching iBeacon...";
 	if ([CLLocationManager isMonitoringAvailableForClass:[CLBeaconRegion class]]) {
         
         //locationManagerを生成してviewcontrollerにdelegate
@@ -29,7 +39,7 @@
         self.locationManager.delegate = self;
         
         //UUID生成
-        self.proximityUUID = [[NSUUID alloc] initWithUUIDString:@"EE29A799-1E19-4315-993B-C30ACF58103F"];
+        self.proximityUUID = [[NSUUID alloc] initWithUUIDString:self.uuidString];
         
         //Beacon領域生成
         self.beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:self.proximityUUID
@@ -47,7 +57,7 @@
     // ローカル通知
     //[self sendLocalNotificationForMessage:@"Enter Region"];
     
-    //region測定
+    //region測定の開始
     if ([region isMemberOfClass:[CLBeaconRegion class]] && [CLLocationManager isRangingAvailable]) {
         [self.locationManager startRangingBeaconsInRegion:(CLBeaconRegion *)region];
     }
@@ -63,6 +73,9 @@
     if ([region isMemberOfClass:[CLBeaconRegion class]] && [CLLocationManager isRangingAvailable]) {
         [self.locationManager stopRangingBeaconsInRegion:(CLBeaconRegion *)region];
     }
+    
+    //region out の表示
+    self.messageLabel.text = @"Out Region.";
 }
 
 
@@ -72,27 +85,39 @@
     if (beacons.count > 0) {
         CLBeacon *nearestBeacon = beacons.firstObject;
         NSString *rangeMessage;
+        UIColor  *rangeColor;
         
         // Beacon の距離でメッセージを変える
         switch (nearestBeacon.proximity) {
             case CLProximityImmediate:
-                rangeMessage = @"Range Immediate: ";
+                rangeMessage = @"非常に近い";
+                rangeColor   = [UIColor redColor];
                 break;
             case CLProximityNear:
-                rangeMessage = @"Range Near: ";
+                rangeMessage = @"近い";
+                rangeColor   = [UIColor orangeColor];
                 break;
             case CLProximityFar:
-                rangeMessage = @"Range Far: ";
+                rangeMessage = @"遠い";
+                rangeColor   = [UIColor greenColor];
                 break;
             default:
-                rangeMessage = @"Range Unknown: ";
+                rangeMessage = @"不明";
                 break;
         }
         
         // ローカル通知
-        NSString *message = [NSString stringWithFormat:@"major:%@, minor:%@, accuracy:%f, rssi:%ld",
-                             nearestBeacon.major, nearestBeacon.minor, nearestBeacon.accuracy, (long)nearestBeacon.rssi];
-        [self sendLocalNotificationForMessage:[rangeMessage stringByAppendingString:message]];
+        NSString *message = [NSString stringWithFormat:@"UUID:%@ \n major:%@ \n minor:%@ \n",
+                             self.uuidString, nearestBeacon.major, nearestBeacon.minor];
+        
+        NSString *rssi = [NSString stringWithFormat:@"%ld", (long)nearestBeacon.rssi];
+        //[self sendLocalNotificationForMessage:[rangeMessage stringByAppendingString:message]];
+        
+        self.messageLabel.text = message;
+        self.rangeMessage.text = rangeMessage;
+        self.rangeMessage.backgroundColor = rangeColor;
+        self.rssiPower.text = rssi;
+        
     }
 }
 
