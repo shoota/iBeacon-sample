@@ -22,6 +22,9 @@
 		BE59DC2A19800E1000578F57 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE59DC2819800E1000578F57 /* InfoPlist.strings */; };
 		BE59DC2C19800E1000578F57 /* ibeconTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BE59DC2B19800E1000578F57 /* ibeconTests.m */; };
 		BE59DC3619800E2700578F57 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE59DC3519800E2700578F57 /* CoreLocation.framework */; };
+		BEF2488C1985972500024F60 /* wifi33.png in Resources */ = {isa = PBXBuildFile; fileRef = BEF2488B1985972500024F60 /* wifi33.png */; };
+		BEF2489019859B8200024F60 /* written.png in Resources */ = {isa = PBXBuildFile; fileRef = BEF2488F19859B8200024F60 /* written.png */; };
+		BEF248921985A21B00024F60 /* clockwise2.png in Resources */ = {isa = PBXBuildFile; fileRef = BEF248911985A21B00024F60 /* clockwise2.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +58,9 @@
 		BE59DC2919800E1000578F57 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BE59DC2B19800E1000578F57 /* ibeconTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ibeconTests.m; sourceTree = "<group>"; };
 		BE59DC3519800E2700578F57 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		BEF2488B1985972500024F60 /* wifi33.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = wifi33.png; path = ../../../../Downloads/wifi33.png; sourceTree = "<group>"; };
+		BEF2488F19859B8200024F60 /* written.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = written.png; path = ../../../../Downloads/written.png; sourceTree = "<group>"; };
+		BEF248911985A21B00024F60 /* clockwise2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = clockwise2.png; path = ../../../../Downloads/clockwise2.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +136,9 @@
 		BE59DC0719800E1000578F57 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				BEF2488F19859B8200024F60 /* written.png */,
+				BEF2488B1985972500024F60 /* wifi33.png */,
+				BEF248911985A21B00024F60 /* clockwise2.png */,
 				BE59DC0819800E1000578F57 /* ibecon-Info.plist */,
 				BE59DC0919800E1000578F57 /* InfoPlist.strings */,
 				BE59DC0C19800E1000578F57 /* main.m */,
@@ -241,8 +250,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE59DC1919800E1000578F57 /* Images.xcassets in Resources */,
+				BEF2489019859B8200024F60 /* written.png in Resources */,
 				BE59DC0B19800E1000578F57 /* InfoPlist.strings in Resources */,
 				BE59DC1419800E1000578F57 /* Main.storyboard in Resources */,
+				BEF2488C1985972500024F60 /* wifi33.png in Resources */,
+				BEF248921985A21B00024F60 /* clockwise2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

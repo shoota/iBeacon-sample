@@ -18,6 +18,9 @@
 
 // UI parts
 @property (weak, nonatomic) IBOutlet UILabel *messageLabel;
+@property (weak, nonatomic) IBOutlet UITextField *UUID;
+@property (weak, nonatomic) IBOutlet UITextField *iBeaconMajor;
+@property (weak, nonatomic) IBOutlet UITextField *iBeaconMinor;
 @property (weak, nonatomic) IBOutlet UITextField *rangeMessage;
 @property (weak, nonatomic) IBOutlet UITextField *rssiPower;
 
@@ -43,9 +46,11 @@
         //Beacon領域生成
         self.beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:self.proximityUUID
                                                             identifier:@"org.anaguma.beacon"];
-        
         // start
         [self.locationManager startMonitoringForRegion:self.beaconRegion];
+        
+        // FIXME
+        self.UUID.text = self.uuidString;
         
     }
 }
@@ -70,7 +75,7 @@
         [self.locationManager stopRangingBeaconsInRegion:(CLBeaconRegion *)region];
     }
     //region out の表示
-    self.messageLabel.text = @"Out Region.";
+    self.messageLabel.text = @"Disconnected.";
 }
 
 // モニタリングが正常開始されているとき
@@ -92,7 +97,7 @@
             break;
             
         case CLRegionStateOutside:
-            self.messageLabel.text = @"Do not exist any signals.";
+            self.messageLabel.text = @"No signals.";
         case CLRegionStateUnknown:
             self.messageLabel.text = @"Searching iBeacon.";
         default:
@@ -125,18 +130,24 @@
                 break;
             default:
                 rangeMessage = @"不明";
+                self.messageLabel.text = @"No Signal";
                 break;
         }
         
         // ローカル通知
-        NSString *message = [NSString stringWithFormat:@"UUID:%@ \n major:%@ \n minor:%@ \n",
-                             self.uuidString, nearestBeacon.major, nearestBeacon.minor];
+//        NSString *message = [NSString stringWithFormat:@"UUID:%@ \n major:%@ \n minor:%@ \n",
+//                             self.uuidString, nearestBeacon.major, nearestBeacon.minor];
+//        [self sendLocalNotificationForMessage:[rangeMessage stringByAppendingString:message]];
+
         
-        NSString *rssi = [NSString stringWithFormat:@"%ld", (long)nearestBeacon.rssi];
-        //[self sendLocalNotificationForMessage:[rangeMessage stringByAppendingString:message]];
+        NSString *rssi  = [NSString stringWithFormat:@"%ld", (long)nearestBeacon.rssi];
+        NSString *major = [NSString stringWithFormat:@"%@", nearestBeacon.major];
+        NSString *minor = [NSString stringWithFormat:@"%@", nearestBeacon.minor];
         
-        self.messageLabel.text = message;
-        self.messageLabel.textAlignment = NSTextAlignmentLeft;
+        self.messageLabel.text = @"Connecting";
+        self.iBeaconMajor.text = major;
+        self.iBeaconMinor.text = minor;
+        
         self.rangeMessage.text = rangeMessage;
         self.rangeMessage.backgroundColor = rangeColor;
         self.rssiPower.text = rssi;
@@ -161,4 +172,9 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)refreshConnection:(id)sender {
+    self.messageLabel.text = @"Restarting Reciever.";
+    [self.locationManager stopMonitoringForRegion:self.beaconRegion];
+    [self.locationManager startMonitoringForRegion:self.beaconRegion];
+}
 @end

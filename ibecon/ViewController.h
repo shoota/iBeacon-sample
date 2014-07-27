@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewController : UIViewController
+- (IBAction)refreshConnection:(id)sender;
 
 @end
