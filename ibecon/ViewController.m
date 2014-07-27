@@ -136,6 +136,7 @@
         //[self sendLocalNotificationForMessage:[rangeMessage stringByAppendingString:message]];
         
         self.messageLabel.text = message;
+        self.messageLabel.textAlignment = NSTextAlignmentLeft;
         self.rangeMessage.text = rangeMessage;
         self.rangeMessage.backgroundColor = rangeColor;
         self.rssiPower.text = rssi;
