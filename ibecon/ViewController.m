@@ -31,7 +31,6 @@
  
     self.uuidString = @"EE29A799-1E19-4315-993B-C30ACF58103F";
 
-    self.messageLabel.text = @"Searching iBeacon...";
 	if ([CLLocationManager isMonitoringAvailableForClass:[CLBeaconRegion class]]) {
         
         //locationManagerを生成してviewcontrollerにdelegate
@@ -51,12 +50,12 @@
     }
 }
 
+/* ---------------------------------------------------------------
+         locationManager delegate methods
+ ---------------------------------------------------------------*/
 // regionに入った時
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
 {
-    // ローカル通知
-    //[self sendLocalNotificationForMessage:@"Enter Region"];
-    
     //region測定の開始
     if ([region isMemberOfClass:[CLBeaconRegion class]] && [CLLocationManager isRangingAvailable]) {
         [self.locationManager startRangingBeaconsInRegion:(CLBeaconRegion *)region];
@@ -66,16 +65,39 @@
 // regionから出たとき
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
 {
-    // ローカル通知
-    //[self sendLocalNotificationForMessage:@"Exit Region"];
-    
     // Beaconの距離測定を終了する
     if ([region isMemberOfClass:[CLBeaconRegion class]] && [CLLocationManager isRangingAvailable]) {
         [self.locationManager stopRangingBeaconsInRegion:(CLBeaconRegion *)region];
     }
-    
     //region out の表示
     self.messageLabel.text = @"Out Region.";
+}
+
+// モニタリングが正常開始されているとき
+- (void) locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region
+{
+    // 現在状況を取得。didDetermineStateがdelegateとして呼ばれる
+    [self.locationManager requestStateForRegion:self.beaconRegion];
+}
+
+// 監視状態が決定したとき
+- (void) locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
+{
+    switch (state) {
+        // Regionの中にいればRangingを始める
+        case CLRegionStateInside:
+            if ([region isMemberOfClass:[CLBeaconRegion class]] && [CLLocationManager isRangingAvailable]) {
+                [self.locationManager startRangingBeaconsInRegion:self.beaconRegion];
+            }
+            break;
+            
+        case CLRegionStateOutside:
+            self.messageLabel.text = @"Do not exist any signals.";
+        case CLRegionStateUnknown:
+            self.messageLabel.text = @"Searching iBeacon.";
+        default:
+            break;
+    }
 }
 
 
